@@ -61,11 +61,13 @@ def main():
     for event in events:
       start = event["start"].get("dateTime", event["start"].get("date"))
       organizer = event["organizer"].get("email")
-      attendees = event["summary"]
-      first = attendees[0]
+      attendees = ""
+      if 'attendees' in event.keys():
+        attendees = event["attendees"][0].get("email")
+      
       print("Start: ", start, ", Organizer: ", 
-            organizer, ", Summary: ", event["summary"])
-      print("first: ", first)
+            organizer, ", Summary: ", event["summary"],
+            ", Attendees: ", attendees)
 
   except HttpError as error:
     print(f"An error occurred: {error}")
